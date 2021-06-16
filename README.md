@@ -1,5 +1,10 @@
 # vue-firebase-app
 
+## Ressources
+```
+https://www.youtube.com/watch?v=Htt8AKeF1Kw
+```
+
 ## Project setup
 ```
 npm install

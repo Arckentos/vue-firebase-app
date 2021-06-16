@@ -1,18 +1,39 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+
+     <table>
+      <thead>
+        <th>
+          <td>Name</td>
+          <td>Date</td>
+        </th>
+      </thead>
+      <tbody>
+        <tr v-for="{ id, name, date } in employees" :key="id">
+          <td>{{ name }}</td>
+          <td>{{ date }}</td>
+          <td>
+            <router-link :to="`/edit/${id}`">
+              <button>Edit</button>
+            </router-link>
+            <button @click="deleteUser(id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import { useLoadEmployees, deleteEmployee } from "@/firebase";
 
 export default {
-  name: 'Home',
-  components: {
-    HelloWorld
-  }
-}
+  name: "Home",
+  components: {},
+  setup() {
+    const employees = useLoadEmployees();
+    return { employees, deleteEmployee };
+  },
+};
 </script>
