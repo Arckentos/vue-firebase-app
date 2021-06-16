@@ -1,39 +1,40 @@
 <template>
-    <div>
-        <button @click="$router.push('/employee/create')">Create</button>
-    </div>
+  <div>
+    <button @click="$router.push('/customer/create')">Create</button>
+  </div>
 
-    <div style="margin-top: 10px">
-        <table>
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Date</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="{ id, name, date } in employees" :key="id">
-                <td>{{ name }}</td>
-                <td>{{ date }}</td>
-                <td>
-                    <router-link :to="`/employee/edit/${id}`">
-                    <button>Edit</button>
-                    </router-link>
-                    <button @click="deleteUser(id)">Delete</button>
-                </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+  <div style="margin-top: 10px">
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="{ id, name, date } in customers" :key="id">
+          <td>{{ name }}</td>
+          <td>{{ date }}</td>
+          <td>
+            <router-link :to="`/customer/edit/${id}`">
+              <button>Edit</button>
+            </router-link>
+            <button @click="deleteDocument('customer', id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </template>
 
 <script>
-import { useLoadEmployees, deleteEmployee } from '@/firebase';
+import { getAllDocuments, deleteDocument } from '@/firebase';
+
 export default {
-  setup() {
-    const employees = useLoadEmployees();
-    return { employees, deleteEmployee}
-  }
+ setup() {
+     const customers = getAllDocuments('customer');
+    return { customers, deleteDocument}
+ }
 };
 </script>
 

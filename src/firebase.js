@@ -4,7 +4,40 @@ import { ref, onUnmounted } from 'vue';
 
 const firebaseApp = firebase.initializeApp(config);
 
-const db = firebaseApp.firestore();
+export const db = firebaseApp.firestore();
+
+
+export const createDocument = (collection, document) => {
+    return db.collection(collection).add(document);
+}
+
+export const getDocumentById = async (collection, id) => {
+    const employee = await  db.collection(collection).doc(id).get();
+    return employee.exists ? employee.data() : null;
+}
+
+export const updateDocument = (collection, id, document) => {
+    return db.collection(collection).doc(id).update(document);
+}
+
+export const deleteDocument = (collection, id) => {
+    return db.collection(collection).doc(id).delete();
+}
+
+export const getAllDocuments = (collection) => {
+    const documents = ref([]);
+    const close = db.collection(collection).onSnapshot(snapshot => {
+        documents.value = snapshot.docs.map(doc => ({ id : doc.id, ... doc.data() }))
+    });
+    onUnmounted(close);
+    return documents;
+}
+
+
+
+
+
+
 const employeeCollection = db.collection("employee");
 
 export const createEmployee = employee => {

@@ -20,6 +20,7 @@ import DriverEdit from '@/components/Driver/DriverEdit.vue';
 */
 import Customer from '@/views/Customer.vue';
 import CustomerList from '@/components/Customer/CustomerList.vue';
+// import CustomerList from '@/components/Customer/test.vue';
 import CustomerCreate from '@/components/Customer/CustomerCreate.vue';
 import CustomerEdit from '@/components/Customer/CustomerEdit.vue';
 
