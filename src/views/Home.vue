@@ -1,7 +1,8 @@
 <template>
-  <div class="home">
+  <div>
+    <span>This is the home page</span>
 
-     <table>
+    <!-- <table>
       <thead>
         <th>
           <td>Name</td>
@@ -20,8 +21,8 @@
           </td>
         </tr>
       </tbody>
-    </table>
-
+    </table> -->
+    
   </div>
 </template>
 
@@ -37,3 +38,6 @@ export default {
   },
 };
 </script>
+
+<style>
+</style>

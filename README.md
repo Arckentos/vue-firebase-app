@@ -3,6 +3,7 @@
 ## Ressources
 ```
 https://www.youtube.com/watch?v=Htt8AKeF1Kw
+https://softauthor.com/firebase-vuejs-role-based-authentication-authorization/#add-admin-auth-custom-claims
 ```
 
 ## Project setup

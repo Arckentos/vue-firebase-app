@@ -1,9 +1,5 @@
 <template>
     <div>
-        <button @click="$router.push('/employee')">Back</button>
-    </div>
-
-    <div>
         <form @submit.prevent="update">
             <div>
                 <label for="name"></label>
