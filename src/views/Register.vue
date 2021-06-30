@@ -2,6 +2,19 @@
   <div>
     <form @submit.prevent="registerButtonPressed">
       <div>
+        <label for="firstname">Firstname</label>
+        <input
+          type="text"
+          name="firstname"
+          id="firstname"
+          v-model="firstname"
+        />
+      </div>
+      <div>
+        <label for="lastname">Lastname</label>
+        <input type="text" name="lastname" id="lastname" v-model="lastname" />
+      </div>
+      <div>
         <label for="email">Email</label>
         <input type="email" name="email" id="email" v-model="email" />
       </div>
@@ -25,47 +38,84 @@
       Have an account already?
       <router-link :to="{ name: 'Login' }">Login</router-link>
     </div>
+
+    <div v-if="errorMailAlreadyInUse == true">
+      <span style="color: red"
+        >Error : {{ this.email }} has already been used to create an
+        account!</span
+      >
+    </div>
   </div>
 </template>
 
 <script>
-import firebase from "firebase";
+import firebaseApp from "@/firebase";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
+
 export default {
   data() {
     return {
+      firstname: "",
+      lastname: "",
       email: "",
       password: "",
       errorMessage: "",
+      errorMailAlreadyInUse: false,
     };
   },
   setup() {},
+  created() {
+    const auth = getAuth();
+    if (auth.currentUser) {
+      this.$router.push("/");
+    }
+  },
   methods: {
     async registerButtonPressed() {
-      try {
-        // var { user } =
-        await firebase
-          .auth()
-          .createUserWithEmailAndPassword(this.email, this.password)
+      const auth = getAuth();
+      
+      this.errorMailAlreadyInUse = false;
+      
+      if (auth.currentUser) {
+        this.$router.push("/");
+      } else {
+        createUserWithEmailAndPassword(auth, this.email, this.password)
           .then((userCredential) => {
             // Signed in
-            // var user = userCredential.user;
-            console.log(userCredential.user);
-            // signout
-            firebase
-              .auth()
-              .signOut()
-              .then((/*user */) => {
-                this.$router.push("/");
+            updateProfile(auth.currentUser, {
+              displayName: this.lastname + this.firstname,
+            })
+              .then(() => {
+                // Profile updated!
+                // ...
+              })
+              .catch((error) => {
+                // An error occurred
+                // ...
               });
+            const user = userCredential.user;
+            this.$router.push("/");
+            // ...
           })
           .catch((error) => {
-            var errorCode = error.code;
-            this.errorMessage = error.message + "  " + error.code;
-            // ..
+            const errorCode = error.code;
+            const errorMessage = error.message;
+
+            switch (errorCode) {
+              case "auth/email-already-in-use":
+                this.errorMailAlreadyInUse = true;
+                console.log("Adresse email déjà utilisée");
+                break;
+
+              default:
+                console.log("errorMessage: " + errorMessage);
+                break;
+            }
           });
-      } catch (error) {
-        console.log(error.message);
-        this.errorMessage = error.message + "  " + error.code;
       }
     },
   },

@@ -1,40 +1,35 @@
 <template>
   <div>
     <span>This is the home page</span>
-
-    <!-- <table>
-      <thead>
-        <th>
-          <td>Name</td>
-          <td>Date</td>
-        </th>
-      </thead>
-      <tbody>
-        <tr v-for="{ id, name, date } in employees" :key="id">
-          <td>{{ name }}</td>
-          <td>{{ date }}</td>
-          <td>
-            <router-link :to="`/edit/${id}`">
-              <button>Edit</button>
-            </router-link>
-            <button @click="deleteUser(id)">Delete</button>
-          </td>
-        </tr>
-      </tbody>
-    </table> -->
-    
+<div>
+    <span>User: {{ user }}</span>
+</div>
   </div>
 </template>
 
 <script>
-import { useLoadEmployees, deleteEmployee } from "@/firebase";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 export default {
   name: "Home",
   components: {},
-  setup() {
-    const employees = useLoadEmployees();
-    return { employees, deleteEmployee };
+  data() {
+    return {
+      user: "",
+    };
+  },
+  created() {
+    const auth = getAuth();
+    const user = auth.currentUser;
+
+    if (user) {
+      // User is signed in, see docs for a list of available properties
+      // https://firebase.google.com/docs/reference/js/firebase.User
+      // ...
+    } else {
+      // No user is signed in.
+      this.user = "";
+    }
   },
 };
 </script>
