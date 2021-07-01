@@ -1,14 +1,14 @@
-// import firebase from "firebase";
 import { initializeApp } from "firebase/app"
+import { getFirestore } from "firebase/firestore";
 
 import { config } from '@/firebaseApiKey';
-import { ref, onUnmounted } from 'vue';
+// import { ref, onUnmounted } from 'vue';
 
-// const firebaseApp = firebase.initializeApp(config);
-const firebaseApp = initializeApp(config);
+export const firebaseApp = initializeApp(config);
+
+export const db = getFirestore();
 
 
-// export const db = firebaseApp.firestore();
 
 
 // export const createDocument = (collection, document) => {

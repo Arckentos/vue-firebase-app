@@ -49,12 +49,13 @@
 </template>
 
 <script>
-import firebaseApp from "@/firebase";
+import { db } from "@/firebase";
 import {
   getAuth,
   createUserWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
 
 export default {
   data() {
@@ -77,29 +78,30 @@ export default {
   methods: {
     async registerButtonPressed() {
       const auth = getAuth();
-      
+
       this.errorMailAlreadyInUse = false;
-      
+
       if (auth.currentUser) {
         this.$router.push("/");
       } else {
         createUserWithEmailAndPassword(auth, this.email, this.password)
           .then((userCredential) => {
-            // Signed in
-            updateProfile(auth.currentUser, {
-              displayName: this.lastname + this.firstname,
-            })
+            // Signed in            
+            updateProfile(auth.currentUser, { displayName: this.lastname + this.firstname })
               .then(() => {
                 // Profile updated!
-                // ...
               })
               .catch((error) => {
                 // An error occurred
-                // ...
               });
             const user = userCredential.user;
+            const docRef = setDoc(doc(db, "users", user.uid), {
+              firstname: this.firstname,
+              lastname: this.lastname,
+              email: user.email,
+            });
+
             this.$router.push("/");
-            // ...
           })
           .catch((error) => {
             const errorCode = error.code;

@@ -2,7 +2,9 @@ import { createRouter, createWebHistory } from 'vue-router';
 import Home from '@/views/Home.vue';
 import Login from '@/views/Login.vue';
 import Register from '@/views/Register.vue';
-// import Admin from '@/views/Admin.vue';
+import Admin from '@/views/Admin.vue';
+import AdminUserList from '@/components/Admin/User/UserList.vue';
+import AdminUserEdit from '@/components/Admin/User/UserEdit.vue';
 
 
 /**
@@ -60,14 +62,26 @@ const routes = [
       guest: true
     }
   },
-  // {
-  //   path: '/admin',
-  //   name: 'Admin',
-  //   component: Admin,
-  //   meta: {
-  //     auth: true
-  //   }
-  // },
+  {
+    path: '/admin',
+    name: 'Admin',
+    component: Admin,
+    meta: {
+      auth: true
+    },
+    children: [
+      {
+        path: '',
+        name: 'AdminUserList',
+        component: AdminUserList
+      },
+      {
+        path: 'user/:id',
+        name: 'AdminUserEdit',
+        component: AdminUserEdit
+      },
+    ]
+  },
 
 
   /**

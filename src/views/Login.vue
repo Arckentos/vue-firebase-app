@@ -35,7 +35,6 @@
 </template>
 
 <script>
-import firebaseApp from "@/firebase";
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 
 export default {
@@ -54,7 +53,6 @@ export default {
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/firebase.User
         const uid = user.uid;
-        console.log(JSON.stringify(user));
       } else {
         // User is signed out
       }
@@ -69,7 +67,6 @@ export default {
           // Signed in
           const user = userCredential.user;
           this.$router.push("/");
-          // ...
         })
         .catch((error) => {
           const errorCode = error.code;

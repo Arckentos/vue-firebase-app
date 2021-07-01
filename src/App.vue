@@ -4,11 +4,11 @@
     <router-link to="/register">Register</router-link>
     <router-link to="/login">Login</router-link>
     <router-link to="/admin">Admin</router-link>
+    <!-- 
     <router-link to="/employee">Employee</router-link>
     <router-link to="/customer">Customer</router-link>
-    <router-link to="/driver">Driver</router-link>
-    <!--
-     -->
+    <router-link to="/driver">Driver</router-link> 
+    -->
   </nav>
 
   <div class="main">
