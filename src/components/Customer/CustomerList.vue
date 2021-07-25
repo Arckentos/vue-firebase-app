@@ -12,11 +12,11 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="{ id, name, date } in customers" :key="id">
-          <td>{{ name }}</td>
-          <td>{{ date }}</td>
+        <tr v-for="customer in customers" :key="customer.id">
+          <td>{{ customer.name }}</td>
+          <td>{{ customer.date }}</td>
           <td>
-            <router-link :to="`/customer/edit/${id}`">
+            <router-link :to="`/customer/edit/${customer.id}`">
               <button>Edit</button>
             </router-link>
             <button @click="deleteDocument('customer', id)">Delete</button>
@@ -28,13 +28,26 @@
 </template>
 
 <script>
-import { getAllDocuments, deleteDocument } from '@/firebase';
+import { db } from "@/firebase";
+import { collection, getDocs } from "firebase/firestore";
 
 export default {
- setup() {
-     const customers = getAllDocuments('customer');
-    return { customers, deleteDocument}
- }
+  data() {
+    return {
+      customers: [ ]
+    }
+  },
+ created() { 
+   this.customers = [];
+ },
+ async mounted() {
+    const querySnapshot = await getDocs(collection(db, "customer"));
+    querySnapshot.forEach((doc) => {
+      var customer = doc.data();
+      customer.id = doc.id;
+      this.customers.push(customer);
+    });
+  },
 };
 </script>
 

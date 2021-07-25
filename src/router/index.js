@@ -20,11 +20,21 @@ import AdminUserEdit from '@/components/Admin/User/UserEdit.vue';
 // /**
 // * Customer components
 // */
-// import Customer from '@/views/Customer.vue';
-// import CustomerList from '@/components/Customer/CustomerList.vue';
-// // import CustomerList from '@/components/Customer/test.vue';
-// import CustomerCreate from '@/components/Customer/CustomerCreate.vue';
-// import CustomerEdit from '@/components/Customer/CustomerEdit.vue';
+import Customer from '@/views/Customer.vue';
+import CustomerList from '@/components/Customer/CustomerList.vue';
+import CustomerCreate from '@/components/Customer/CustomerCreate.vue';
+import CustomerEdit from '@/components/Customer/CustomerEdit.vue';
+
+
+
+// /**
+// * Contrat components
+// */
+import Contrat from '@/views/Contrat.vue';
+import ContratList from '@/components/Contrat/ContratList.vue';
+import ContratCreate from '@/components/Contrat/ContratCreate.vue';
+import ContratEdit from '@/components/Contrat/ContratEdit.vue';
+
 
 
 // /**
@@ -117,31 +127,61 @@ const routes = [
   /**
    * Customer routes
    */
-  // {
-  //   path: '/customer',
-  //   name: 'Customer',
-  //   component: Customer,
-  //   meta: {
-  //     auth: true
-  //   },
-  //   children: [
-  //     {
-  //       path: '',
-  //       name: 'CustomerList',
-  //       component: CustomerList
-  //     },
-  //     {
-  //       path: 'create',
-  //       name: 'CustomerCreate',
-  //       component: CustomerCreate
-  //     },
-  //     {
-  //       path: 'edit/:id',
-  //       name: 'CustomerEdit',
-  //       component: CustomerEdit
-  //     }
-  //   ]
-  // },
+  {
+    path: '/customer',
+    name: 'Customer',
+    component: Customer,
+    meta: {
+      auth: true
+    },
+    children: [
+      {
+        path: '',
+        name: 'CustomerList',
+        component: CustomerList
+      },
+      {
+        path: 'create',
+        name: 'CustomerCreate',
+        component: CustomerCreate
+      },
+      {
+        path: 'edit/:id',
+        name: 'CustomerEdit',
+        component: CustomerEdit
+      }
+    ]
+  },
+
+
+  /**
+   * Contrat routes
+   */
+  {
+    path: '/contrat',
+    name: 'contrat',
+    component: Contrat,
+    meta: {
+      auth: true
+    },
+    children: [
+      {
+        path: '',
+        name: 'ContratList',
+        component: ContratList
+      },
+      {
+        path: 'create',
+        name: 'ContratCreate',
+        component: ContratCreate
+      },
+      {
+        path: 'edit/:id',
+        name: 'ContratEdit',
+        component: ContratEdit
+      }
+    ]
+  },
 
 
   /**

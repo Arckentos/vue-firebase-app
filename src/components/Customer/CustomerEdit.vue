@@ -23,7 +23,8 @@
 <script>
 import { reactive, computed, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { getDocumentById, updateDocument } from "@/firebase";
+import { db } from "@/firebase";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 
 export default {
   setup() {
@@ -32,13 +33,15 @@ export default {
     const customerId = computed(() => route.params.id);
     const form = reactive({ name: "", date: "" });
     onMounted(async () => {
-      const customer = await getDocumentById("customer", customerId.value);
-      form.name = customer.name;
-      form.date = customer.date;
+      const docSnap = await getDoc(doc(db, "customer", customerId.value));
+      if (docSnap.exists()) {
+      form.name = docSnap.data().name;
+      form.date = docSnap.data().date;
+      }
     });
 
     const update = async () => {
-      await updateDocument("customer", customerId.value, { ...form });
+      await updateDoc(doc(db, "customer", customerId.value), { ...form });
       router.push("/customer");
       form.name = "";
       form.date = "";

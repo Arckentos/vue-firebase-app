@@ -49,6 +49,7 @@ export default {
         // doc.data() is never undefined for query doc snapshots
         // console.log(doc.id, " => ", doc.data());
         var user = doc.data();
+        console.log(user);
         user.id = doc.id;
         // if (!user.role.admin)
         this.users.push(user);
