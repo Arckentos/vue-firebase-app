@@ -1,7 +1,7 @@
 <template>
   <div>
     <div style="display: flex; gap: 10px; align-items: center">
-      <!-- <h1 v-if="user">Customer:{{ user.email }}</h1> -->
+      <h2 v-if="user">Customer:{{ user }}</h2>
       <button @click="signout" style="width: max-content; height: max-content">Signout</button>
     </div>
 
@@ -12,11 +12,18 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   data() {
     return {
-      user: null,
+      // user: null,
     };
+  },
+  computed: {
+    ...mapGetters({
+      user: "user",
+    })
   },
 };
 </script>

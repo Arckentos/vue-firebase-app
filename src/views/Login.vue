@@ -1,9 +1,9 @@
 <template>
   <div>
-    <form @submit.prevent="loginButtonPressed">
+    <form action="#" @submit.prevent="loginButtonPressed">
       <div>
         <label for="email">Email</label>
-        <input type="email" name="email" id="email" v-model="email" />
+        <input type="email" name="email" id="email" v-model="email" autofocus />
       </div>
       <div>
         <label for="password">Password</label>
@@ -40,23 +40,23 @@ import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "firebas
 export default {
   data() {
     return {
-      email: "",
-      password: "",
+      email: "bertomiu@louspegaillouns.com",
+      password: "bertomiulonano",
       errorMessage: "",
       errorBadPassword: false,
     };
   },
   created() {
-    const auth = getAuth();
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        // User is signed in, see docs for a list of available properties
-        // https://firebase.google.com/docs/reference/js/firebase.User
-        const uid = user.uid;
-      } else {
-        // User is signed out
-      }
-    });
+    // const auth = getAuth();
+    // onAuthStateChanged(auth, (user) => {
+    //   if (user) {
+    //     // User is signed in, see docs for a list of available properties
+    //     // https://firebase.google.com/docs/reference/js/firebase.User
+    //     const uid = user.uid;
+    //   } else {
+    //     // User is signed out
+    //   }
+    // });
   },
   methods: {
     async loginButtonPressed() {
@@ -65,7 +65,7 @@ export default {
       signInWithEmailAndPassword(auth, this.email, this.password)
         .then((userCredential) => {
           // Signed in
-          const user = userCredential.user;
+          // const user = userCredential.user;
           this.$router.push("/");
         })
         .catch((error) => {
